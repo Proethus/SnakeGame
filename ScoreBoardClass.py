@@ -9,15 +9,23 @@ class Scoreboard(Turtle):
         self.color("white")
         self.hideturtle()
         self.penup()
-        self.write(f"Score: {self.score}", False, "center", ("Arial", 24, "normal"))
+        file = open("high_score.txt", "r")
+        self.high_score = int(file.readline())
+        self.write(f"Score: {self.score} | High score: {self.high_score}", False, "center", ("Arial", 24, "normal"))
 
     def update_score(self):
         self.clear()
         self.score += 1
-        self.write(f"Score: {self.score}", False, "center", ("Arial", 24, "normal"))
+        self.update_high_score()
+        self.write(f"Score: {self.score} | High score: {self.high_score}", False, "center", ("Arial", 24, "normal"))
         self.goto(0, 260)
 
-    def show_end_game(self):
-        self.clear()
-        self.goto(0, 0)
-        self.write(f"GAME OVER", False, "center", ("Arial", 24, "normal"))
+    def update_high_score(self):
+        if self.score > self.high_score:
+            self.high_score = self.score
+            file = open("high_score.txt", "w")
+            file.write(f"{self.high_score}")
+
+    def reset_score(self):
+        self.score = -1
+        self.update_score()

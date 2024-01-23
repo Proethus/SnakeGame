@@ -31,13 +31,13 @@ while game_is_on:
         food.generate_new_food()
         score.update_score()
 
-    for snake_part in snake.snake[2:len(snake.snake):1]:
+    for snake_part in snake.snake[3:len(snake.snake):1]:
         if snake.head.distance(snake_part) < 15:
-            game_is_on = False
-            break
+            snake.reset_snake()
+            score.reset_score()
 
     if abs(snake.snake[0].xcor()) > 290 or abs(snake.snake[0].ycor()) > 290:
-        game_is_on = False
-        score.show_end_game()
+        snake.reset_snake()
+        score.reset_score()
 
 screen.exitonclick()

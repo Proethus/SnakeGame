@@ -14,6 +14,7 @@ class Snake:
     def elongate(self, number_of_pieces_to_add):
         for index in range(0, number_of_pieces_to_add):
             new_snake = Turtle("square")
+            new_snake.hideturtle()
             new_snake.pensize(20)
             new_snake.penup()
             new_snake.color("white")
@@ -22,6 +23,14 @@ class Snake:
                 new_snake.goto(self.snake[-1].xcor() - 20, self.snake[-1].ycor())
             else:
                 new_snake.goto(0, 0)
+            new_snake.showturtle()
+
+    def reset_snake(self):
+        for segment in self.snake[3: len(self.snake): 1]:
+            self.snake.remove(segment)
+            segment.hideturtle()
+            del segment
+        self.head.goto(0, 0)
 
     def move(self):
         prev_pos_x = self.head.xcor()
